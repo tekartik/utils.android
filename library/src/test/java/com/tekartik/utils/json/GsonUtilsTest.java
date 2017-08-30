@@ -178,12 +178,16 @@ public class GsonUtilsTest {
     @Test
     public void testFromGson() {
         Gson gson = new Gson();
-        assertEquals(null, fromJson(gson, null, Simple1.class));
+        assertEquals(null, fromJson(gson, (String)null, Simple1.class));
         assertEquals(null, fromJson(gson, "", Simple1.class));
         assertEquals(null, fromJson(gson, "[]", Simple1.class));
         assertNotNull(fromJson(gson, "{}", Simple1.class));
         Simple1 simple = fromJson(gson, "{\"textValue\":\"test1\"}", Simple1.class);
         assertEquals("test1", simple.textValue);
+
+        JsonObject object = new JsonObject();
+        assertNotNull(fromJson(gson, object, Simple1.class));
+
     }
 
     @Test

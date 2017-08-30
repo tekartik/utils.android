@@ -114,6 +114,18 @@ public class GsonUtils {
         return null;
     }
 
+    // safe
+    static public <T> T fromJson(Gson gson, JsonElement json, Class<T> klass) {
+        if (json == null) {
+            return null;
+        }
+        try {
+            return gson.fromJson(json, klass);
+        } catch (Exception ignored) {
+        }
+        return null;
+    }
+
     static public class ListOfJson<T> implements ParameterizedType {
         private Class<?> wrapped;
 
