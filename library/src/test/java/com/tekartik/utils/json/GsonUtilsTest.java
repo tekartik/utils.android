@@ -189,12 +189,15 @@ public class GsonUtilsTest {
     @Test
     public void testListFromGson() {
         Gson gson = new Gson();
-        assertEquals(null, listFromJson(gson, null, Simple1.class));
+        assertEquals(null, listFromJson(gson, (String)null, Simple1.class));
         assertEquals(null, listFromJson(gson, "", Simple1.class));
         assertEquals(null, listFromJson(gson, "{}", Simple1.class));
         assertNotNull(listFromJson(gson, "[]", Simple1.class));
         List<Simple1> simples = listFromJson(gson, "[{\"textValue\":\"test1\"}]", Simple1.class);
         assertEquals("test1", simples.get(0).textValue);
+
+        JsonArray json = new JsonArray();
+        assertEquals(0, listFromJson(gson, json, Simple1.class).size());
     }
 
     static class LongTest {

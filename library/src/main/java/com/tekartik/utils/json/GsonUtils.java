@@ -148,6 +148,17 @@ public class GsonUtils {
         return null;
     }
 
+    static public <T> List<T> listFromJson(Gson gson, JsonArray json, Class<T> klass) {
+        if (json == null) {
+            return null;
+        }
+        try {
+            return gson.fromJson(json, new ListOfJson<T>(klass));
+        } catch (Exception ignored) {
+        }
+        return null;
+    }
+
     static public <T> JsonObject packList(Gson gson, List<T> list) {
         if (list != null) {
             List<JsonObject> jsonList = new ArrayList<>();
