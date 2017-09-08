@@ -44,4 +44,21 @@ public class HexUtilsTest {
         assertArrayEquals(new byte[]{(byte) 0xFF}, HexUtils.hexStringToByteArray("ff"));
         assertArrayEquals(new byte[]{0x01, (byte) 0xFF}, HexUtils.hexStringToByteArray("01FF"));
     }
+
+    @Test
+    public void parseHexString() {
+
+        assertArrayEquals(new byte[] {0x01, (byte) 0x83, 0x3d, 0x79}, HexUtils.parse("01 83 3d 79"));
+        assertArrayEquals(new byte[] {0x01, (byte) 0x83}, HexUtils.parse("0183"));
+        assertArrayEquals(new byte[] {0x01, (byte) 0x83, 0x3d, 0x79, (byte) 0xFF}, HexUtils.parse("01 83 3d79 FF"));
+        assertArrayEquals(new byte[] {0x01}, HexUtils.parse("0x01"));
+        assertArrayEquals(new byte[] {(byte) 0xFF, (byte) 0xFE, (byte) 0xED, (byte) 0xDC}, HexUtils.parse("0xFFFE ED xDC"));
+        /*
+        expect(parseHexString("0183"), [0x01, 0x83]);
+        expect(parseHexString("01 83 3d79 FF"), [0x01, 0x83, 0x3d, 0x79, 0xFF]);
+        expect(parseHexString("0x01"), [0x01]);
+        expect(parseHexString("0xFFFE ED xDC"), [0xFF, 0xFE, 0xED, 0xDC]);
+        // parseHexString
+    });*/
+    }
 }

@@ -1,5 +1,7 @@
 package com.tekartik.utils.hex;
 
+import java.io.ByteArrayOutputStream;
+
 /**
  * Created by alex on 30/08/17.
  */
@@ -31,5 +33,28 @@ public class HexUtils {
             r.append(hexCode[(b & 0xF)]);
         }
         return r.toString();
+    }
+
+    static public byte[] parse(String hexString) {
+        if (hexString == null) {
+            return null;
+        }
+        ByteArrayOutputStream out = new ByteArrayOutputStream(hexString.length() / 2);
+        int firstNibble = -1;
+
+        for (char c : hexString.toCharArray()) {
+            if (firstNibble == -1) {
+                firstNibble = Character.digit(c, 16);
+            } else {
+                int secondNibble = Character.digit(c, 16);
+                if (secondNibble != -1) {
+                    out.write(firstNibble * 16 + secondNibble);
+                    firstNibble = -1;
+                } else {
+                    firstNibble = -1;
+                }
+            }
+        }
+        return out.toByteArray();
     }
 }
