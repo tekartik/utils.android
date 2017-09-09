@@ -92,6 +92,12 @@ public class Completer<T> {
                 while (true) {
                     try {
                         lock.wait(unit.toMillis(timeout));
+                        // Either timeout or done
+                        if (isDone()) {
+                            return doneGetOrThrow();
+                        } else {
+                            throw new TimeoutException();
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

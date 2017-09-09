@@ -66,6 +66,31 @@ public class CompleterTest {
     }
 
     @Test
+    public void timeout() throws ExecutionException, InterruptedException {
+        Completer<Integer> completer = new Completer<>();
+        Completer.Future future = completer.getFuture();
+        assertFalse(future.isCancelled());
+        assertFalse(future.isDone());
+
+        // should timeout
+        try {
+            future.get(1);
+            fail();
+        } catch (TimeoutException ignore) {}
+
+        future.cancel(true);
+        assertTrue(future.isCancelled());
+        assertTrue(future.isDone());
+
+        try {
+            future.get();
+            fail();
+        } catch (ExecutionException e) {
+            assertTrue(e.getCause() instanceof CancellationException);
+        }
+    }
+
+    @Test
     public void cancel() throws ExecutionException, InterruptedException {
         Completer<Integer> completer = new Completer<>();
         Completer.Future future = completer.getFuture();
