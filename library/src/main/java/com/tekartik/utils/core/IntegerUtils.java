@@ -17,15 +17,7 @@ public class IntegerUtils {
         return value != null ? value : defaultValue;
     }
 
-    public static int nonNull(Integer value) {
-        return nonNull(value, 0);
-    }
-
-    public static int parseInt(Object value) {
-        return parseInt(value, 0);
-    }
-
-    public static int parseInt(Object value, int defaultValue) {
+    public static Integer parseInt(Object value) {
         if (value instanceof Integer) {
             return (Integer)value;
         } else if (value instanceof Long) {
@@ -43,6 +35,10 @@ public class IntegerUtils {
                 return Integer.parseInt(value.toString());
             } catch (Exception ignore) {}
         }
-        return defaultValue;
+        return null;
+    }
+
+    public static int parseInt(Object value, int defaultValue) {
+        return nonNull(parseInt(value), defaultValue);
     }
 }

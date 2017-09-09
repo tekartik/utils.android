@@ -11,12 +11,12 @@ import static org.junit.Assert.assertTrue;
 public class IntegerUtilsTest {
 
     @Test
-    public void testNoNull() {
-        assertEquals(0, nonNull(null));
+    public void testNonNull() {
+        assertEquals(0, nonNull(null, 0));
         assertEquals(1, nonNull(null, 1));
         assertEquals(2, nonNull(null, 2));
         assertEquals(1, nonNull(1, 2));
-        assertEquals(1, nonNull(1));
+        assertEquals(1, nonNull(1, 0));
     }
 
     @Test
@@ -29,12 +29,12 @@ public class IntegerUtilsTest {
 
     @Test
     public void testParseInt() {
-        assertEquals(1, parseInt(1));
-        assertEquals(1, parseInt(1L));
-        assertEquals(1, parseInt("1"));
-        assertEquals(1, parseInt(1.0));
-        assertEquals(1, parseInt(1.0f));
-        assertEquals(0, parseInt("dummy"));
+        assertEquals(1, parseInt(1).intValue());
+        assertEquals(1, parseInt(1L).intValue());
+        assertEquals(1, parseInt("1").intValue());
+        assertEquals(1, parseInt(1.0).intValue());
+        assertEquals(1, parseInt(1.0f).intValue());
+        assertEquals(null, parseInt("dummy"));
         assertEquals(1, parseInt("dummy", 1));
     }
 }
