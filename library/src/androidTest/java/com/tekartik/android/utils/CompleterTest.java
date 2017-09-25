@@ -1,4 +1,4 @@
-package com.tekartik.android.utils.test;
+package com.tekartik.android.utils;
 
 import android.content.Context;
 import android.support.annotation.CallSuper;

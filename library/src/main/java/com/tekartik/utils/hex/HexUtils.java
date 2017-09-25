@@ -27,12 +27,12 @@ public class HexUtils {
         if (data == null) {
             return null;
         }
-        StringBuilder r = new StringBuilder(data.length * 2);
+        StringBuilder sb = new StringBuilder(data.length * 2);
         for (byte b : data) {
-            r.append(hexCode[(b >> 4) & 0xF]);
-            r.append(hexCode[(b & 0xF)]);
+            sb.append(hexCode[(b >> 4) & 0xF]);
+            sb.append(hexCode[(b & 0xF)]);
         }
-        return r.toString();
+        return sb.toString();
     }
 
     static public byte[] parse(String hexString) {
