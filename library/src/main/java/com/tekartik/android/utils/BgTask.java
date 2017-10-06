@@ -1,7 +1,6 @@
 package com.tekartik.android.utils;
 
 import android.os.AsyncTask;
-import android.support.annotation.CallSuper;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -59,8 +58,6 @@ public abstract class BgTask {
                 e.printStackTrace();
             }
         }
-
-        ;
 
     };
 

@@ -20,6 +20,7 @@ public class MainMenuActivity extends Test.MenuActivity {
             super.onCreate();
             Log.i(TAG, "MainMenu");
             initItems(
+                    new MenuItem(new HandlerTestMenu()),
                     new Item("isEmulator") {
                         @Override
                         public void execute() {

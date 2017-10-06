@@ -3,7 +3,6 @@ package com.tekartik.android.utils;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * Created by alex on 19/09/16.

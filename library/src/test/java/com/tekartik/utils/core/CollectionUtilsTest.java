@@ -36,6 +36,11 @@ public class CollectionUtilsTest {
         Collection<Integer> collection = Arrays.asList(1, 2, 3);
         assertEquals(collection, copy(collection));
         assertNotSame(collection, copy(collection));
+    }
+
+    @Test
+    public void added() {
+        assertTrue(CollectionUtils.added(null, null).isEmpty());
 
     }
 }

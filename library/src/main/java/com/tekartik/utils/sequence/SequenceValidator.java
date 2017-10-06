@@ -9,7 +9,6 @@ public class SequenceValidator {
 
     public int sequenceIndex = 0;
 
-    ;
     TYPE type;
     long lastTime = 0;
 

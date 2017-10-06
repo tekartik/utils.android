@@ -77,7 +77,7 @@ public class GsonPackTest {
         Gson gson = new Gson();
 
         assertNull(GsonUtils.packList(gson, null));
-        GsonPack gsonPack = new GsonPack(0, list);
+        GsonPack<Simple1> gsonPack = new GsonPack<>(0, list);
         JsonObject pack = GsonPack.pack(gson, gsonPack);
 
         // handle both direction
@@ -98,7 +98,7 @@ public class GsonPackTest {
         } catch (ComparisonFailure ignore) {
             assertEquals("{\"columns\":[\"textValue\",\"longValue\"],\"rows\":[[\"test1\",1],[\"test2\",2]],\"version\":1}", pack.toString());
         }
-        devLog(pack.toString());
+        //devLog(pack.toString());
         /*
         JsonElement raw = gson.toJsonTree(list);
         Debug.devLog(pack.toString());

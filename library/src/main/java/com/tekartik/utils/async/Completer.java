@@ -18,6 +18,12 @@ public class Completer<T> {
     T value;
     Exception exception;
 
+    static public class Void extends Completer<java.lang.Void> {
+        public boolean complete() {
+            return complete(null);
+        }
+    }
+
     public class Future implements java.util.concurrent.Future<T> {
         @Override
         public boolean cancel(boolean mayInterruptIfRunning) {

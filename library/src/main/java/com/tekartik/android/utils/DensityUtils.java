@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
 import static android.util.DisplayMetrics.DENSITY_DEFAULT;
-import static android.util.DisplayMetrics.DENSITY_MEDIUM;
 
 public class DensityUtils {
 

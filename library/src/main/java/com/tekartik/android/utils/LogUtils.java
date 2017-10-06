@@ -47,7 +47,7 @@ public class LogUtils {
 
 	static private String PREFIX = "tk";
 
-	public static final String tag(String name) {
+	public static String tag(String name) {
 		if (!debugLoggedOnce) {
 			logOnce(PREFIX);
 		}
@@ -58,7 +58,7 @@ public class LogUtils {
 		return tag;
 	}
 
-	public static final String tag(Class<?> klass) {
+	public static String tag(Class<?> klass) {
 		return tag(klass.getSimpleName());
 	}
 

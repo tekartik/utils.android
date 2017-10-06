@@ -1,13 +1,9 @@
 package com.tekartik.utils.security;
 
-import com.tekartik.utils.sequence.SequenceValidator;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
