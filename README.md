@@ -10,6 +10,7 @@ In your main build.gradle
 allprojects {
     repositories {
         jcenter()
+        google()
         <b>maven { url "https://jitpack.io" }</b>
     }
 }
@@ -19,7 +20,7 @@ In your project
 
 <pre>
 dependencies {
-    <b>compile 'com.github.tekartik:utils.android:0.3.0'</b>
+    <b>compile 'com.github.tekartik:utils.android:0.5.0'</b>
 }
 </pre>
 
