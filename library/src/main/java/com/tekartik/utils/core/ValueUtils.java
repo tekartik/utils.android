@@ -9,6 +9,13 @@ public class ValueUtils {
         }
     }
 
+    public static <T> boolean areEqualsNonNull(T obj1, T obj2) {
+        if (obj1 == null) {
+            return false;
+        }
+        return areEquals(obj1, obj2);
+    }
+
     public static <T> T nonNull(T value, T defaultValue) {
         return (value == null) ? defaultValue : value;
     }
