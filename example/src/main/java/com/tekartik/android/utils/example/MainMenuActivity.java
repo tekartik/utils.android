@@ -2,7 +2,9 @@ package com.tekartik.android.utils.example;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 
 import com.tekartik.testmenu.Test;
 import com.tekartik.utils.device.DeviceUtils;
@@ -26,7 +28,26 @@ public class MainMenuActivity extends Test.MenuActivity {
                         public void execute() {
                             showToast(Build.PRODUCT + "\nDeviceUtils.isEmulator(): " + DeviceUtils.isEmulator(Build.PRODUCT));
                         }
-                    }
+                    },
+                    new Item("DeviceInfo") {
+
+                        @Override
+                        public void execute() {
+                            StringBuilder sb = new StringBuilder();
+
+                            Display display = getActivity().getWindowManager().getDefaultDisplay();
+                            DisplayMetrics outMetrics = new DisplayMetrics();
+                            display.getMetrics(outMetrics);
+
+                            sb.append(outMetrics.widthPixels + "x" + outMetrics.heightPixels + " px\n");
+                            float density = getActivity().getResources().getDisplayMetrics().density;
+                            float dpHeight = outMetrics.heightPixels / density;
+                            float dpWidth = outMetrics.widthPixels / density;
+                            sb.append(Math.round(dpWidth) + "x" + Math.round(dpHeight) + " dp\n");
+                            showToast(sb.toString());
+                        }
+                    },
+                    null
 
 
             );
