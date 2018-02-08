@@ -1,5 +1,7 @@
 package com.tekartik.utils.sequence;
 
+import android.annotation.SuppressLint;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -11,15 +13,14 @@ import static java.lang.Boolean.TRUE;
  * <p>
  * Basic tap pattern recognition
  */
-public class SequenceValidator {
+public abstract class SequenceValidator {
 
-    public int sequenceIndex = 0;
-
-    final private TYPE type;
+    private long lastTime = 0;
+    int sequenceIndex = 0;
 
     static public class Multi extends SequenceValidator {
 
-        static public final int DEFAULT_MULTI_COUNT = 6;
+        static final int DEFAULT_MULTI_COUNT = 6;
 
         private final int multiCount; // Default multi count
 
@@ -28,16 +29,19 @@ public class SequenceValidator {
         }
 
         public Multi(int multiCount) {
-            super(null);
             this.multiCount = multiCount;
         }
 
         @Override
         protected boolean validate(long timestamp, long diff) {
-            if (mediumDiff(diff)) {
-                sequenceIndex++;
-            } else {
+            if (sequenceIndex == 0) {
                 sequenceIndex = 1;
+            } else {
+                if (mediumDiff(diff)) {
+                    sequenceIndex++;
+                } else {
+                    sequenceIndex = 1;
+                }
             }
             if (sequenceIndex == multiCount) {
                 return true;
@@ -50,9 +54,10 @@ public class SequenceValidator {
 
     static public class Suite extends SequenceValidator {
 
-        static public final List<Integer> SUITE_LIST_DEFAUT = Arrays.asList(2, 3, 1);
+        static final List<Integer> SUITE_LIST_DEFAUT = Arrays.asList(2, 3, 1);
         private final List<Integer> list;
         private final int sequenceCount;
+        @SuppressLint("UseSparseArrays")
         private final HashMap<Integer, Boolean> sequenceDiffs = new HashMap<>();
 
 
@@ -61,7 +66,6 @@ public class SequenceValidator {
         }
 
         public Suite(List<Integer> list) {
-            super(null);
             this.list = list;
             int index = 0;
             for (int count : list) {
@@ -77,31 +81,27 @@ public class SequenceValidator {
 
         @Override
         protected boolean validate(long timestamp, long diff) {
-            Boolean checkSmallDiff = sequenceDiffs.get(sequenceIndex);
-            if (TRUE.equals(checkSmallDiff)) {
-                if (SequenceValidator.smallDiff(diff)) {
+            if (sequenceIndex == 0) {
+                sequenceIndex = 1;
+            } else {
+                Boolean checkSmallDiff = sequenceDiffs.get(sequenceIndex);
+                if (TRUE.equals(checkSmallDiff)) {
+                    if (SequenceValidator.smallDiff(diff)) {
+                        sequenceIndex++;
+                    } else {
+                        sequenceIndex = 1;
+                    }
+                } else if (SequenceValidator.largeDiff(diff)) {
                     sequenceIndex++;
                 } else {
                     sequenceIndex = 1;
                 }
-            } else if (SequenceValidator.largeDiff(diff)) {
-                sequenceIndex++;
-            } else {
-                sequenceIndex = 1;
             }
             if (sequenceIndex == sequenceCount) {
                 return true;
             }
             return false;
         }
-    }
-
-    private long lastTime = 0;
-
-
-    @Deprecated
-    public SequenceValidator(TYPE type) {
-        this.type = type;
     }
 
     static private boolean smallDiff(long diff) {
@@ -118,40 +118,7 @@ public class SequenceValidator {
         return diff >= 500 && diff < 3000;
     }
 
-    protected boolean validate(long timestamp, long diff) {
-        switch (type) {
-            case TWO_THREE_ONE:
-                if ((sequenceIndex == 0)
-                        || (sequenceIndex == 1 && smallDiff(diff))
-                        || (sequenceIndex == 2 && largeDiff(diff))
-                        || (sequenceIndex == 3 && smallDiff(diff))
-                        || (sequenceIndex == 4 && smallDiff(diff))
-                        || (sequenceIndex == 5 && largeDiff(diff))
-                        ) {
-                    sequenceIndex++;
-                } else {
-                    sequenceIndex = 1;
-                }
-
-                if (sequenceIndex == 6) {
-                    return true;
-                }
-                break;
-            case SIX: {
-                if (mediumDiff(diff)) {
-                    sequenceIndex++;
-                } else {
-                    sequenceIndex = 1;
-                }
-                if (sequenceIndex == 6) {
-                    return true;
-                }
-                break;
-            }
-        }
-        return false;
-
-    }
+    protected abstract boolean validate(long timestamp, long diff);
 
     public boolean validate(long timestamp) {
         long diff = timestamp - lastTime;
@@ -164,13 +131,9 @@ public class SequenceValidator {
         return validated;
     }
 
+    @SuppressWarnings("unused")
     public boolean validate() {
         return validate(System.currentTimeMillis());
     }
 
-    @Deprecated
-    public enum TYPE {
-        TWO_THREE_ONE,
-        SIX,
-    }
 }

@@ -2,6 +2,8 @@ package com.tekartik.utils.sequence;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -11,36 +13,6 @@ import static org.junit.Assert.assertTrue;
  */
 
 public class SequenceValidatorTest {
-    @Test
-    public void validatorTwoThreeOneOk() throws Exception {
-        SequenceValidator validator = new SequenceValidator(SequenceValidator.TYPE.TWO_THREE_ONE);
-
-        assertFalse(validator.validate(0));
-        assertEquals(1, validator.sequenceIndex);
-        assertFalse(validator.validate(0));
-        assertEquals(2, validator.sequenceIndex);
-        assertFalse(validator.validate(500));
-        assertEquals(3, validator.sequenceIndex);
-        assertFalse(validator.validate(500));
-        assertEquals(4, validator.sequenceIndex);
-        assertFalse(validator.validate(500));
-        assertEquals(5, validator.sequenceIndex);
-        assertTrue(validator.validate(1000));
-        assertEquals(6, validator.sequenceIndex);
-
-    }
-
-    @Test
-    public void validatorTwoThreeOneDommed() throws Exception {
-        SequenceValidator validator = new SequenceValidator(SequenceValidator.TYPE.TWO_THREE_ONE);
-
-        assertFalse(validator.validate(0));
-        assertEquals(1, validator.sequenceIndex);
-        assertFalse(validator.validate(0));
-        assertEquals(2, validator.sequenceIndex);
-        assertFalse(validator.validate(0));
-        assertEquals(1, validator.sequenceIndex);
-    }
 
     @Test
     public void suiteValidatorTwoThreeOneOk() throws Exception {
@@ -74,23 +46,19 @@ public class SequenceValidatorTest {
     }
 
     @Test
-    public void validatorSixOk() throws Exception {
-        SequenceValidator validator = new SequenceValidator(SequenceValidator.TYPE.SIX);
+    public void suiteValidatorOne() throws Exception {
+        SequenceValidator validator = new SequenceValidator.Suite(Arrays.asList(1));
 
-        assertFalse(validator.validate(0));
+        assertTrue(validator.validate(0));
         assertEquals(1, validator.sequenceIndex);
-        assertFalse(validator.validate(0));
+        assertTrue(validator.validate(0));
+        assertEquals(1, validator.sequenceIndex);
+        assertFalse(validator.validate(1500));
         assertEquals(2, validator.sequenceIndex);
-        assertFalse(validator.validate(500));
-        assertEquals(3, validator.sequenceIndex);
-        assertFalse(validator.validate(500));
-        assertEquals(4, validator.sequenceIndex);
-        assertFalse(validator.validate(500));
-        assertEquals(5, validator.sequenceIndex);
-        assertTrue(validator.validate(1000));
-        assertEquals(6, validator.sequenceIndex);
-
+        assertTrue(validator.validate(1500));
+        assertEquals(1, validator.sequenceIndex);
     }
+
 
     @Test
     public void validatorMultiDefaultOk() throws Exception {
@@ -127,7 +95,7 @@ public class SequenceValidatorTest {
 
     @Test
     public void validatorSixDommed() throws Exception {
-        SequenceValidator validator = new SequenceValidator(SequenceValidator.TYPE.SIX);
+        SequenceValidator validator = new SequenceValidator.Multi();
 
         assertFalse(validator.validate(0));
         assertEquals(1, validator.sequenceIndex);
