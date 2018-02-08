@@ -43,6 +43,37 @@ public class SequenceValidatorTest {
     }
 
     @Test
+    public void suiteValidatorTwoThreeOneOk() throws Exception {
+        SequenceValidator validator = new SequenceValidator.Suite();
+
+        assertFalse(validator.validate(0));
+        assertEquals(1, validator.sequenceIndex);
+        assertFalse(validator.validate(0));
+        assertEquals(2, validator.sequenceIndex);
+        assertFalse(validator.validate(500));
+        assertEquals(3, validator.sequenceIndex);
+        assertFalse(validator.validate(500));
+        assertEquals(4, validator.sequenceIndex);
+        assertFalse(validator.validate(500));
+        assertEquals(5, validator.sequenceIndex);
+        assertTrue(validator.validate(1000));
+        assertEquals(6, validator.sequenceIndex);
+
+    }
+
+    @Test
+    public void suiteValidatorTwoThreeOneDommed() throws Exception {
+        SequenceValidator validator = new SequenceValidator.Suite();
+
+        assertFalse(validator.validate(0));
+        assertEquals(1, validator.sequenceIndex);
+        assertFalse(validator.validate(0));
+        assertEquals(2, validator.sequenceIndex);
+        assertFalse(validator.validate(0));
+        assertEquals(1, validator.sequenceIndex);
+    }
+
+    @Test
     public void validatorSixOk() throws Exception {
         SequenceValidator validator = new SequenceValidator(SequenceValidator.TYPE.SIX);
 
@@ -59,6 +90,39 @@ public class SequenceValidatorTest {
         assertTrue(validator.validate(1000));
         assertEquals(6, validator.sequenceIndex);
 
+    }
+
+    @Test
+    public void validatorMultiDefaultOk() throws Exception {
+        SequenceValidator validator = new SequenceValidator.Multi();
+
+        assertFalse(validator.validate(0));
+        assertEquals(1, validator.sequenceIndex);
+        assertFalse(validator.validate(0));
+        assertEquals(2, validator.sequenceIndex);
+        assertFalse(validator.validate(500));
+        assertEquals(3, validator.sequenceIndex);
+        assertFalse(validator.validate(500));
+        assertEquals(4, validator.sequenceIndex);
+        assertFalse(validator.validate(500));
+        assertEquals(5, validator.sequenceIndex);
+        assertTrue(validator.validate(1000));
+        assertEquals(6, validator.sequenceIndex);
+
+    }
+
+    @Test
+    public void validatorMultiTwoOk() throws Exception {
+        SequenceValidator validator = new SequenceValidator.Multi(2);
+
+        assertFalse(validator.validate(0));
+        assertEquals(1, validator.sequenceIndex);
+        assertTrue(validator.validate(500));
+        assertEquals(2, validator.sequenceIndex);
+        assertFalse(validator.validate(1000));
+        assertEquals(3, validator.sequenceIndex);
+        assertFalse(validator.validate(2500));
+        assertEquals(1, validator.sequenceIndex);
     }
 
     @Test
