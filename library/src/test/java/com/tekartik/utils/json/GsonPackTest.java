@@ -1,15 +1,15 @@
 package com.tekartik.utils.json;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tekartik.utils.debug.Debug.devLog;
+import static com.tekartik.utils.json.GsonBase.assertJsonEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -81,11 +81,8 @@ public class GsonPackTest {
         JsonObject pack = GsonPack.pack(gson, gsonPack);
 
         // handle both direction
-        try {
-            assertEquals("{\"columns\":[\"longValue\",\"textValue\"],\"rows\":[[1,\"test1\"],[2,\"test2\"]]}", pack.toString());
-        } catch (ComparisonFailure ignore) {
-            assertEquals("{\"columns\":[\"textValue\",\"longValue\"],\"rows\":[[\"test1\",1],[\"test2\",2]]}", pack.toString());
-        }
+
+        assertJsonEquals("{\"columns\":[\"longValue\",\"textValue\"],\"rows\":[[1,\"test1\"],[2,\"test2\"]]}", pack.toString());
 
         // version = 0, same thing
         assertEquals(pack, GsonUtils.packList(gson, list));
@@ -93,30 +90,14 @@ public class GsonPackTest {
         gsonPack.setVersion(1);
 
         pack = GsonPack.pack(gson, gsonPack);
-        try {
-            assertEquals("{\"columns\":[\"longValue\",\"textValue\"],\"rows\":[[1,\"test1\"],[2,\"test2\"]],\"version\":1}", pack.toString());
-        } catch (ComparisonFailure ignore) {
-            assertEquals("{\"columns\":[\"textValue\",\"longValue\"],\"rows\":[[\"test1\",1],[\"test2\",2]],\"version\":1}", pack.toString());
-        }
-        //devLog(pack.toString());
-        /*
+
+        assertJsonEquals("{\"columns\":[\"longValue\",\"textValue\"],\"rows\":[[1,\"test1\"],[2,\"test2\"]],\"version\":1}", pack.toString());
         JsonElement raw = gson.toJsonTree(list);
-        Debug.devLog(pack.toString());
+        //Debug.devLog(pack.toString());
         //Debug.devLog(raw.toString());
-        assertEquals(GsonUtils.parse("[{\"textValue\":\"test1\",\"longValue\":1},{\"textValue\":\"test2\",\"longValue\":2}]"), raw);
+        assertJsonEquals("[{\"textValue\":\"test1\",\"longValue\":1},{\"textValue\":\"test2\",\"longValue\":2}]", raw.toString());
 
-        try {
-            assertEquals(GsonUtils.parse("{\"columns\":[\"longValue\",\"textValue\"],\"rows\":[[1,\"test1\"],[2,\"test2\"]]}"), pack);
-        } catch (AssertionError e) {
-            assertEquals(GsonUtils.parse("{\"columns\":[\"textValue\",\"longValue\"],\"rows\":[[\"test1\",1],[\"test2\",2]]}"), pack);
-        }
-
-        assertTrue(pack.toString().length() < raw.toString().length());
-
-        GsonPack<Simple1> unpacked = GsonPack.unpack(gson, pack, Simple1.class);
-        assertEquals(gson.toJsonTree(unpacked), gson.toJsonTree(list));
-        */
-
+        assertJsonEquals("{\"columns\":[\"longValue\",\"textValue\"],\"rows\":[[1,\"test1\"],[2,\"test2\"]],\"version\":1}", pack.toString());
     }
 
     @Test

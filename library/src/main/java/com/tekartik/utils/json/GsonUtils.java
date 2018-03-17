@@ -11,6 +11,7 @@ import com.google.gson.JsonPrimitive;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +42,16 @@ public class GsonUtils {
             columnSet.addAll(getKeys(jsonObject));
         }
 
+        List<String> columns = new ArrayList<>(columnSet);
+
+        // sort the columns to always get the same result
+        Collections.sort(columns);
+
         JsonArray jsonColumns = new JsonArray();
-        for (String column : columnSet) {
+        for (String column : columns) {
             jsonColumns.add(new JsonPrimitive(column));
         }
 
-        List<String> columns = new ArrayList<>(columnSet);
 
         // build the rows
         JsonArray jsonRows = new JsonArray();

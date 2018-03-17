@@ -47,13 +47,13 @@ public class DateTimeTest {
 
     @Test
     public void testCompare() {
-        DateTime dateTime1 = new DateTime(null, 2017,1,1);
-        DateTime dateTime2 = new DateTime(null, 2017,1,1);
+        DateTime dateTime1 = new DateTime(null, 2017, 1, 1);
+        DateTime dateTime2 = new DateTime(null, 2017, 1, 1);
 
         assertFalse(dateTime1.after(dateTime2));
         assertFalse(dateTime2.after(dateTime1));
         assertEquals(0, compare(dateTime1, dateTime2));
-        dateTime2 = new DateTime(null, 2017,1,2);
+        dateTime2 = new DateTime(null, 2017, 1, 2);
         assertEquals(-1, compare(dateTime1, dateTime2));
         assertTrue(dateTime1.before(dateTime2));
         assertFalse(dateTime1.after(dateTime2));
