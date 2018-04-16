@@ -46,6 +46,41 @@ public class DateTimeTest {
     }
 
     @Test
+    public void fromDate() {
+        java.util.Date date = new java.util.Date(12345678901234L);
+        DateTime dateTime = new DateTime(date);
+        assertEquals("2361-03-21T20:15:01.234+0100", dateTime.toString());
+    }
+
+    @Test
+    public void fromMillis() {
+        DateTime dateTime = new DateTime(12345678901234L);
+        assertEquals("2361-03-21T20:15:01.234+0100", dateTime.toString());
+    }
+
+    @Test
+    public void fromUtcDateTime() {
+        DateTime dateTime = new UtcDateTime(12345678901234L);
+        dateTime = new DateTime(dateTime);
+        assertEquals("2361-03-21T20:15:01.234+0100", dateTime.toString());
+    }
+
+    @Test
+    public void fromDateTime() {
+        DateTime dateTime = new DateTime(12345678901234L);
+        dateTime = new DateTime(dateTime);
+        assertEquals("2361-03-21T20:15:01.234+0100", dateTime.toString());
+    }
+
+    @Test
+    public void getMillis() {
+        java.util.Date date = new java.util.Date(12345678901234L);
+        DateTime dateTime = new DateTime(date);
+
+        assertEquals(date.getTime(), dateTime.getMillis());
+    }
+
+    @Test
     public void testCompare() {
         DateTime dateTime1 = new DateTime(null, 2017, 1, 1);
         DateTime dateTime2 = new DateTime(null, 2017, 1, 1);

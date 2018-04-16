@@ -2,6 +2,7 @@ package com.tekartik.utils.date;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by alex on 31/03/17.
@@ -19,6 +20,17 @@ public class UtcDateTime extends DateTime {
             throw new AssertionError("Calendar time zone must be utc");
         }
         this.calendar = calendar;
+    }
+
+    public UtcDateTime(DateTime dateTime) {
+        super(CalendarUtils.getCalendar(Utc.timeZone, dateTime));
+    }
+    public UtcDateTime(Date date) {
+        super(CalendarUtils.getCalendar(Utc.timeZone, date));
+    }
+
+    public UtcDateTime(long millisSinceEpoch) {
+        super(CalendarUtils.getCalendar(Utc.timeZone, millisSinceEpoch));
     }
 
     public UtcDateTime(int year, int month, int day) {

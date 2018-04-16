@@ -97,7 +97,17 @@ public class CalendarUtils {
         return calendar;
     }
 
+    public static Calendar getCalendar(TimeZone timeZone, DateTime dateTime) {
+        if (dateTime == null) {
+            return getCalendar(timeZone);
+        }
+        return getCalendar(timeZone, dateTime.getMillis());
+
+    }
     public static Calendar getCalendar(TimeZone timeZone, Date date) {
+        if (date == null) {
+            return getCalendar(timeZone);
+        }
         return getCalendar(timeZone, date.getTime());
     }
 

@@ -3,6 +3,7 @@ package com.tekartik.utils.date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -15,8 +16,23 @@ public class DateTime {
 
     Calendar calendar;
 
+    static private Calendar localCalendarNow() {
+        return CalendarUtils.getCalendar(null);
+    }
     public DateTime() {
-        this(CalendarUtils.getCalendar(null));
+        this(localCalendarNow());
+    }
+
+    public DateTime(Date date) {
+        this(CalendarUtils.getCalendar((TimeZone)null, date));
+    }
+
+    public DateTime(DateTime dateTime) {
+        this(CalendarUtils.getCalendar((TimeZone)null, dateTime));
+    }
+
+    public DateTime(long millisSinceEpoch) {
+        this(CalendarUtils.getCalendar((TimeZone)null, millisSinceEpoch));
     }
 
     public DateTime(Calendar calendar) {
@@ -41,6 +57,10 @@ public class DateTime {
 
     public Calendar getCalendar() {
         return calendar;
+    }
+
+    public long getMillis() {
+        return calendar.getTimeInMillis();
     }
 
     @Override
