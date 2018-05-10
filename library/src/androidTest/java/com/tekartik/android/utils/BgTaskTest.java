@@ -67,7 +67,8 @@ public class BgTaskTest {
         bgTask.get(30, TimeUnit.SECONDS);
 
         assertTrue(data.doInBackgroundDone);
-        assertTrue(data.onPostExecuteDone);
+        // this is not always the case...onPostExecute might be called afterwards
+        // assertTrue(data.onPostExecuteDone);
     }
 
     @Test
@@ -127,7 +128,8 @@ public class BgTaskTest {
         assertFalse(data.onPostExecuteDone);
         asyncTask.get();
         assertTrue(data.doInBackgroundDone);
-        assertTrue(data.onPostExecuteDone);
+        // this is not always the case...onPostExecute might be called afterwards
+        //assertTrue(data.onPostExecuteDone);
 
 
     }
