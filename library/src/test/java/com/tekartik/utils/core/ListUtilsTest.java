@@ -7,8 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.tekartik.utils.core.ListUtils.get;
+import static com.tekartik.utils.core.ListUtils.isEmpty;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class ListUtilsTest {
 
@@ -32,4 +35,12 @@ public class ListUtilsTest {
         assertEquals("test2", get(list, 2));
         assertNull(get(list, 3));
     }
+
+    @Test
+    public void testIsEmpty() {
+        assertTrue(isEmpty(null));
+        assertTrue(isEmpty(new ArrayList<>()));
+        assertFalse(isEmpty(Arrays.asList(1)));
+    }
+
 }

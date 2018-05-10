@@ -15,4 +15,8 @@ public class ListUtils {
         }
         return null;
     }
+
+    static public <T> boolean isEmpty(List<T> list) {
+        return list == null || list.size() == 0;
+    }
 }
