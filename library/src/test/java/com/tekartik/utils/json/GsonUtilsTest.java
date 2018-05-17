@@ -104,7 +104,7 @@ public class GsonUtilsTest {
     @Test
     public void toRowsColumns() {
 
-        List<JsonObject> list = new ArrayList<JsonObject>();
+        List<JsonObject> list = new ArrayList<>();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("key", "value");
         list.add(jsonObject);

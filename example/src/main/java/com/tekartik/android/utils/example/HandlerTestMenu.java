@@ -3,11 +3,13 @@ package com.tekartik.android.utils.example;
 import android.os.Handler;
 import android.util.Log;
 
+import com.tekartik.android.utils.BgTask;
 import com.tekartik.android.utils.handler.DelayedBusyHandler;
 import com.tekartik.android.utils.handler.DelayedBusyListHandler;
 import com.tekartik.android.utils.handler.DelayedBusyMapHandler;
 import com.tekartik.android.utils.handler.DelayedHandlerListener;
 import com.tekartik.android.utils.handler.DelayedIdleHandler;
+import com.tekartik.android.utils.handler.SingleOperationHandler;
 import com.tekartik.testmenu.Test;
 import com.tekartik.utils.core.TimestampUtils;
 
@@ -61,6 +63,27 @@ public class HandlerTestMenu extends Test.Menu {
         triggerAndRepeat();
     }
 
+    SingleOperationHandler.Listener singleOperationListener = new SingleOperationHandler.Listener() {
+        @Override
+        public void onHandle() {
+            showToast("Starting 5s operation");
+            new BgTask() {
+                @Override
+                protected void doInBackground() throws Exception {
+                    Thread.sleep(5000);
+                }
+
+                @Override
+                protected void onPostExecute() {
+                    showToast("Ending 5s operation");
+                    singleOperationHandler.done();
+                }
+            }.execute();
+        }
+    };
+
+    SingleOperationHandler singleOperationHandler = new SingleOperationHandler(singleOperationListener);
+
     interface Listener {
         void onTrigger();
     }
@@ -111,7 +134,7 @@ public class HandlerTestMenu extends Test.Menu {
                     @Override
                     public void execute() {
                         count = 0;
-                        delayedBusyMapHandler = new DelayedBusyMapHandler<String, String>(3000, new DelayedBusyMapHandler.Listener<String, String>() {
+                        delayedBusyMapHandler = new DelayedBusyMapHandler<>(3000, new DelayedBusyMapHandler.Listener<String, String>() {
 
                             @Override
                             public void onHandle(Map<String, String> map) {
@@ -136,7 +159,7 @@ public class HandlerTestMenu extends Test.Menu {
                     @Override
                     public void execute() {
                         count = 0;
-                        delayedBusyListHandler = new DelayedBusyListHandler<String>(3000, new DelayedBusyListHandler.Listener<String>() {
+                        delayedBusyListHandler = new DelayedBusyListHandler<>(3000, new DelayedBusyListHandler.Listener<String>() {
 
                             @Override
                             public void onHandle(List<String> list) {
@@ -154,8 +177,15 @@ public class HandlerTestMenu extends Test.Menu {
                         });
                     }
                 },
-                null
 
+                new Item("Trigger single operation") {
+
+                    @Override
+                    public void execute() {
+                        singleOperationHandler.trigger();
+                    }
+                },
+                null
 
 
         );

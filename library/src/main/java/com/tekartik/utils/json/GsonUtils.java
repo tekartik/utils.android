@@ -159,7 +159,7 @@ public class GsonUtils {
             return null;
         }
         try {
-            return gson.fromJson(json, new ListOfJson<T>(klass));
+            return gson.fromJson(json, new ListOfJson<>(klass));
         } catch (Exception ignored) {
         }
         return null;
@@ -170,7 +170,7 @@ public class GsonUtils {
             return null;
         }
         try {
-            return gson.fromJson(json, new ListOfJson<T>(klass));
+            return gson.fromJson(json, new ListOfJson<>(klass));
         } catch (Exception ignored) {
         }
         return null;

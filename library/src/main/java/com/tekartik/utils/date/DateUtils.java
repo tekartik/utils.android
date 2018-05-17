@@ -1,5 +1,7 @@
 package com.tekartik.utils.date;
 
+import com.tekartik.utils.core.TimestampUtils;
+
 /**
  * Created by alex on 28/04/17.
  */
@@ -33,5 +35,14 @@ public class DateUtils {
         }
     }
 
+    public static Long getMillis(java.util.Date date) {
+        if (date == null) {
+            return null;
+        }
+        return date.getTime();
 
+    }
+    public static boolean elapsed(java.util.Date date1, java.util.Date date2, long millis) {
+        return TimestampUtils.elapsed(getMillis(date1), getMillis(date2), millis);
+    }
 }
