@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static com.tekartik.utils.core.StringUtils.capitalizeFirstLetter;
+import static com.tekartik.utils.core.StringUtils.nonEmpty;
 import static com.tekartik.utils.core.StringUtils.nonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -30,6 +31,16 @@ public class StringUtilsTest {
     public void testNonNull() {
         assertEquals("", nonNull(null));
         assertEquals("_", nonNull("_"));
+    }
+
+    @Test
+    public void testNonEmpty() {
+        assertEquals(null, nonEmpty(null));
+        assertEquals(null, nonEmpty(""));
+        assertEquals("a", nonEmpty("a"));
+        assertEquals("b", nonEmpty(null, "b"));
+        assertEquals("b", nonEmpty("", "b"));
+        assertEquals("a", nonEmpty("a", "b"));
     }
 
     @Test

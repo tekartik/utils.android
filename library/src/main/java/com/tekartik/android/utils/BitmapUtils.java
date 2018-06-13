@@ -8,7 +8,7 @@ import android.graphics.BitmapFactory;
  */
 
 public class BitmapUtils {
-    static public Bitmap getResizedBitmap(int targetW, int targetH, String imagePath) {
+    static public Bitmap decodeFromFile(int targetW, int targetH, String imagePath) {
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -27,5 +27,9 @@ public class BitmapUtils {
 
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath, bmOptions);
         return (bitmap);
+    }
+
+    static public Bitmap getResizedBitmap(int targetW, int targetH, String imagePath) {
+        return decodeFromFile(targetW, targetH, imagePath);
     }
 }

@@ -13,8 +13,12 @@ public class StringUtils {
      * @return
      */
     static public String nonEmpty(String string) {
-        if ((string == null) || (string.isEmpty())) {
-            return null;
+        return nonEmpty(string, null);
+    }
+
+    static public String nonEmpty(String string, String defaultValue) {
+        if (isEmpty(string)) {
+            return defaultValue;
         }
         return string;
     }
