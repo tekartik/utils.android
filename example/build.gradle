@@ -23,7 +23,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
-    implementation 'com.github.tekartik:test.android:0.4.0'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "com.github.tekartik:test.android:${tekartikTestVersion}"
+    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
     implementation project(':library')
 }

@@ -24,3 +24,10 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    sdkVersion = 27
+    buildToolsVersion = "27.0.3"
+    supportLibraryVersion = "27.1.1"
+    tekartikTestVersion = "0.4.1"
+}
