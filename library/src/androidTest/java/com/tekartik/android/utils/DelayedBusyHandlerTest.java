@@ -40,7 +40,9 @@ public class DelayedBusyHandlerTest {
 
         @Override
         protected void doInBackground() throws Exception {
-            Looper.prepare();
+            if (Looper.myLooper() == null) {
+                Looper.prepare();
+            }
             looper = Looper.myLooper();
             delayedHandler = new DelayedBusyHandler(100, new DelayedHandlerListener() {
                 @Override

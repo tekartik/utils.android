@@ -60,7 +60,9 @@ public class SingleOperationHandlerTest {
 
         @Override
         protected void doInBackground() throws Exception {
-            Looper.prepare();
+            if (Looper.myLooper() == null) {
+                Looper.prepare();
+            }
             looper = Looper.myLooper();
 
             data.handler = new SingleOperationHandler(listener);
@@ -71,26 +73,32 @@ public class SingleOperationHandlerTest {
 
     @Test
     public void testSingleOperationHandler() throws ExecutionException, InterruptedException, TimeoutException {
-        DelayerHandlerBgTask task = new DelayerHandlerBgTask();
-        Data data = task.data;
-        assertEquals(0, data.triggerCount);
+        new BgTask() {
+            @Override
+            protected void doInBackground() throws Exception {
+                DelayerHandlerBgTask task = new DelayerHandlerBgTask();
+                Data data = task.data;
+                assertEquals(0, data.triggerCount);
 
-        task.execute();
-        data.startCompleter.getFuture().get();
-
-
-        // Trigger 3 times
-        data.handler.trigger();
-        Thread.sleep(10);
-        data.handler.trigger();
-        data.handler.trigger();
-        data.handler.trigger();
-
-        data.secondTimeCompleter.getFuture().get(10000);
+                task.execute();
+                data.startCompleter.getFuture().get();
 
 
-        task.looper.quit();
-        task.get();
+                // Trigger 3 times
+                data.handler.trigger();
+                Thread.sleep(10);
+                data.handler.trigger();
+                data.handler.trigger();
+                data.handler.trigger();
+
+                data.secondTimeCompleter.getFuture().get(10000);
+
+
+                task.looper.quit();
+                task.get();
+            }
+        }.execute().get();
+
 
     }
 
