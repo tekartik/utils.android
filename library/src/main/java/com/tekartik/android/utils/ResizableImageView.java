@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 /**
  * Created by alex on 19/09/16.
  */
-public class ResizableImageView extends android.support.v7.widget.AppCompatImageView {
+public class ResizableImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     public ResizableImageView(Context context, AttributeSet attrs) {
         super(context, attrs);

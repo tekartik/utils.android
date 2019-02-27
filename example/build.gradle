@@ -23,6 +23,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     implementation "com.github.tekartik:test.android:${tekartikTestVersion}"
-    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
+    implementation "androidx.appcompat:appcompat:${appCompatVersion}"
     implementation project(':library')
 }

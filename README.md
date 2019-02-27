@@ -6,7 +6,7 @@ Simple test menu for android
 
 In your main build.gradle
 
-<pre>
+```
 allprojects {
     repositories {
         jcenter()
@@ -14,27 +14,24 @@ allprojects {
         <b>maven { url "https://jitpack.io" }</b>
     }
 }
-</pre>
+```
 
 In your project
 
-<pre>
+```
 dependencies {
     <b>compile 'com.github.tekartik:utils.android:0.5.0'</b>
 }
-</pre>
+```
 
 Bleeding edge
 
-<pre>
+```
 dependencies {
     <b>compile 'com.github.tekartik:utils.android-SNAPSHOT'</b>
 }
-</pre>
-
+```
 
 ## Dev
 
-Before checking run
-
-    ./run_unit_test.sh
+* [Development](doc/dev.md) information

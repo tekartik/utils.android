@@ -1,11 +1,10 @@
 package com.tekartik.android.utils;
 
 import android.content.Context;
-import android.support.annotation.CallSuper;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.annotation.CallSuper;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
-import com.tekartik.android.utils.BgTask;
 import com.tekartik.utils.async.Completer;
 
 import org.junit.Test;

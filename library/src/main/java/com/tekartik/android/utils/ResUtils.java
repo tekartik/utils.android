@@ -1,7 +1,7 @@
 package com.tekartik.android.utils;
 
 import android.content.res.Resources;
-import android.support.annotation.RawRes;
+import androidx.annotation.RawRes;
 
 import com.tekartik.utils.stream.StreamUtils;
 

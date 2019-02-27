@@ -1,8 +1,8 @@
 package com.tekartik.android.utils.test;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.tekartik.android.utils.ResUtils;
 

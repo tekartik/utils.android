@@ -1,7 +1,7 @@
 package com.tekartik.android.utils.handler;
 
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by alex on 28/09/17.
