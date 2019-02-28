@@ -10,8 +10,6 @@ import java.util.Calendar;
 public abstract class DateBase implements Date {
     Calendar calendar;
 
-    abstract protected SimpleDateFormat getSimpleDateFormat();
-
     protected DateBase(Calendar calendar, boolean clone) {
         if (clone) {
             this.calendar = CalendarUtils.toUtcCalendarSameTime(calendar);
@@ -22,6 +20,8 @@ public abstract class DateBase implements Date {
             throw new AssertionError("Calendar time zone must be utc");
         }
     }
+
+    abstract protected SimpleDateFormat getSimpleDateFormat();
 
     @Override
     public int hashCode() {

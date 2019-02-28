@@ -1,9 +1,9 @@
 package com.tekartik.android.utils.handler;
 
-import androidx.annotation.NonNull;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by alex on 28/09/17.
@@ -12,10 +12,6 @@ import java.util.Map;
 public class DelayedBusyMapHandler<K, V> implements DelayedHandler {
     final DelayedHandler delayedHandler;
     final private Map<K, V> map = new HashMap<>();
-
-    public interface Listener<K, V> {
-        void onHandle(Map<K, V> map);
-    }
 
     public DelayedBusyMapHandler(long delay, @NonNull final Listener<K, V> listener) {
         delayedHandler = new DelayedBusyHandler(delay, new DelayedHandlerListener() {
@@ -37,5 +33,9 @@ public class DelayedBusyMapHandler<K, V> implements DelayedHandler {
 
     public void trigger() {
         delayedHandler.trigger();
+    }
+
+    public interface Listener<K, V> {
+        void onHandle(Map<K, V> map);
     }
 }

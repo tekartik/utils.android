@@ -2,8 +2,6 @@ package com.tekartik.android.utils.handler;
 
 import android.os.Handler;
 
-import com.tekartik.android.utils.handler.DelayedHandler;
-
 /**
  * Will trigger onHandler \<delay\> ms after last trigger
  */

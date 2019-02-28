@@ -1,9 +1,8 @@
 package com.tekartik.android.utils.handler;
 
 import android.os.Handler;
-import androidx.annotation.NonNull;
 
-import java.util.Date;
+import androidx.annotation.NonNull;
 
 /**
  * Created by alex on 17/5/18.
@@ -15,19 +14,12 @@ import java.util.Date;
 // always called int the same thread
 public class SingleOperationHandler implements DelayedHandler {
 
-    // set when onHandle is called
-    // clear on done()
-    private Date lastTriggeredDate;
-    private Date lastHandledDate;
-
     @NonNull
     private final Listener listener;
-    private boolean pending = false;
     private final Handler handler = new Handler();
-
-    public interface Listener {
-        void onHandle();
-    }
+    private long handleRevision = 0;
+    private long triggerRevision = 0;
+    private boolean pending = false;
 
     public SingleOperationHandler(@NonNull Listener listener) {
         this.listener = listener;
@@ -35,8 +27,8 @@ public class SingleOperationHandler implements DelayedHandler {
 
     // only if it was triggered after the last time it was handled
     private void check() {
-        if (!pending && (lastTriggeredDate != null &&
-                (lastHandledDate == null || lastHandledDate.before(lastTriggeredDate)))) {
+        // devLog("pending " + pending + " trigger " + triggerRevision + " handle " + handleRevision);
+        if ((!pending) && (triggerRevision > handleRevision)) {
             handle();
         }
     }
@@ -44,10 +36,12 @@ public class SingleOperationHandler implements DelayedHandler {
     // run
     private void handle() {
         pending = true;
-        lastHandledDate = new Date();
+        handleRevision = triggerRevision;
+        // devLog("handle " + handleRevision);
         handler.post(new Runnable() {
             @Override
             public void run() {
+                // devLog("handle (post)" + handleRevision);
                 listener.onHandle();
             }
         });
@@ -55,7 +49,7 @@ public class SingleOperationHandler implements DelayedHandler {
 
     // thread safe
     public void trigger() {
-        lastTriggeredDate = new Date();
+        ++triggerRevision;
         check();
     }
 
@@ -63,5 +57,9 @@ public class SingleOperationHandler implements DelayedHandler {
     public void done() {
         pending = false;
         check();
+    }
+
+    public interface Listener {
+        void onHandle();
     }
 }

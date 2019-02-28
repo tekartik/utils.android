@@ -2,10 +2,11 @@ package com.tekartik.android.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.fragment.app.Fragment;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by alex on 16/12/16.

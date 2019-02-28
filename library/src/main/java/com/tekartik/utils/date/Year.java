@@ -21,6 +21,15 @@ public class Year extends DateBase {
         clearMonth(getCalendar());
     }
 
+    static public Year parseYear(String dateText) {
+        Calendar calendar = DateParser.parse(sdf, dateText);
+        if (calendar != null) {
+            return new Year(calendar);
+        }
+
+        return null;
+    }
+
     @Override
     public SimpleDateFormat getSimpleDateFormat() {
         return sdf;
@@ -32,15 +41,6 @@ public class Year extends DateBase {
             return false;
         }
         return super.equals(obj);
-    }
-
-    static public Year parseYear(String dateText) {
-        Calendar calendar = DateParser.parse(sdf, dateText);
-        if (calendar != null) {
-            return new Year(calendar);
-        }
-
-        return null;
     }
 
 }

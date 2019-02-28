@@ -1,11 +1,11 @@
 package com.tekartik.utils.async;
 
-import androidx.annotation.NonNull;
-
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by alex on 09/09/17.
@@ -13,10 +13,57 @@ import java.util.concurrent.TimeoutException;
 
 public class Completer<T> {
 
+    final Object lock = new Object();
     boolean cancelled = false;
     boolean done = false;
     T value;
     Exception exception;
+    Future future = new Future();
+
+    /**
+     * complete the future with an error if not completed yet
+     *
+     * @param e
+     * @return true if not completed before
+     */
+    synchronized public boolean completeError(Exception e) {
+        if (!future.isDone()) {
+            synchronized (lock) {
+                exception = e;
+                this.done = true;
+                lock.notifyAll();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * complete the future if not completed yet
+     *
+     * @param value
+     * @return true if not completed before
+     */
+    synchronized public boolean complete(T value) {
+        if (!future.isDone()) {
+            synchronized (lock) {
+                this.value = value;
+                this.done = true;
+                lock.notifyAll();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * The completer future
+     *
+     * @return
+     */
+    public Future getFuture() {
+        return future;
+    }
 
     static public class Void extends Completer<java.lang.Void> {
         public boolean complete() {
@@ -126,51 +173,5 @@ public class Completer<T> {
         public T get(long msTimeout) throws ExecutionException, TimeoutException {
             return get(msTimeout, TimeUnit.MILLISECONDS);
         }
-    }
-    final Object lock = new Object();
-    Future future = new Future();
-
-    /**
-     * complete the future with an error if not completed yet
-     * @param e
-     * @return true if not completed before
-     */
-    synchronized public boolean completeError(Exception e) {
-        if (!future.isDone()) {
-            synchronized (lock) {
-                exception = e;
-                this.done = true;
-                lock.notifyAll();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * complete the future if not completed yet
-     *
-     * @param value
-     * @return true if not completed before
-     */
-    synchronized public boolean complete(T value) {
-        if (!future.isDone()) {
-            synchronized (lock) {
-                this.value = value;
-                this.done = true;
-                lock.notifyAll();
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * The completer future
-     *
-     * @return
-     */
-    public Future getFuture() {
-        return future;
     }
 }

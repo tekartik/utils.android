@@ -30,8 +30,18 @@ public class Day extends DateBase {
         clearTime(getCalendar());
 
     }
+
     public Day(Calendar calendar) {
         this(calendar, true);
+    }
+
+    static public Day parseDay(String dateText) {
+        Calendar calendar = DateParser.parse(sdf, dateText);
+        if (calendar != null) {
+            return new Day(calendar);
+        }
+
+        return null;
     }
 
     @Override
@@ -45,15 +55,6 @@ public class Day extends DateBase {
             return false;
         }
         return super.equals(obj);
-    }
-
-    static public Day parseDay(String dateText) {
-        Calendar calendar = DateParser.parse(sdf, dateText);
-        if (calendar != null) {
-            return new Day(calendar);
-        }
-
-        return null;
     }
 
     public void add(int dayCount) {

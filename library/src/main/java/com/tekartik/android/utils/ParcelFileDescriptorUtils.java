@@ -13,35 +13,6 @@ public class ParcelFileDescriptorUtils {
 
     static public String TAG = "PfdUtils";
 
-    static class TransferThread extends Thread {
-        InputStream in;
-        OutputStream out;
-
-        TransferThread(InputStream in, OutputStream out) {
-            this.in = in;
-            this.out = out;
-        }
-
-        @Override
-        public void run() {
-            byte[] buf = new byte[8192];
-            int len;
-
-            try {
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-
-                in.close();
-                out.flush();
-                out.close();
-            } catch (IOException e) {
-                Log.e(TAG,
-                        "Exception transferring file", e);
-            }
-        }
-    }
-
     // This causes broken pipe in a 2018-05-02 experiment
     static public ParcelFileDescriptor fromStreamThread(InputStream inputStream)
             throws IOException {
@@ -71,5 +42,34 @@ public class ParcelFileDescriptorUtils {
         }
 
         return (pipe[0]);
+    }
+
+    static class TransferThread extends Thread {
+        InputStream in;
+        OutputStream out;
+
+        TransferThread(InputStream in, OutputStream out) {
+            this.in = in;
+            this.out = out;
+        }
+
+        @Override
+        public void run() {
+            byte[] buf = new byte[8192];
+            int len;
+
+            try {
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+
+                in.close();
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                Log.e(TAG,
+                        "Exception transferring file", e);
+            }
+        }
     }
 }

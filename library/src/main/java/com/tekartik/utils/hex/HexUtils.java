@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 
 public class HexUtils {
 
+    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
+
     public static byte[] hexStringToByteArray(String s) {
         if (s == null) {
             return null;
@@ -20,8 +22,6 @@ public class HexUtils {
         }
         return data;
     }
-
-    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
     public static String byteArrayToHexString(byte[] data) {
         if (data == null) {

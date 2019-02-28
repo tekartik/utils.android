@@ -1,6 +1,7 @@
 package com.tekartik.android.utils.handler;
 
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -13,13 +14,9 @@ public class DelayedBusyHandler implements DelayedHandler {
     private final long delay;
     @NonNull
     private final DelayedHandlerListener listener;
+    private final Handler handler = new Handler();
     private boolean pending = false;
     private boolean triggered = false;
-    private final Handler handler = new Handler();
-
-    public interface Listener {
-        void onHandle();
-    }
 
     public DelayedBusyHandler(long delay, @NonNull DelayedHandlerListener listener) {
         this.delay = delay;
@@ -53,5 +50,9 @@ public class DelayedBusyHandler implements DelayedHandler {
     public void trigger() {
         triggered = true;
         check();
+    }
+
+    public interface Listener {
+        void onHandle();
     }
 }

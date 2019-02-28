@@ -11,6 +11,13 @@ import com.tekartik.utils.device.DeviceUtils;
 
 public class MainMenuActivity extends Test.MenuActivity {
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Test.BuildConfig.DEBUG = BuildConfig.DEBUG;
+        Test.Menu.setStartMenu(new MainTestMenu());
+    }
+
     static public class MainTestMenu extends Test.Menu {
 
         protected MainTestMenu() {
@@ -54,12 +61,5 @@ public class MainMenuActivity extends Test.MenuActivity {
 
         }
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Test.BuildConfig.DEBUG = BuildConfig.DEBUG;
-        Test.Menu.setStartMenu(new MainTestMenu());
     }
 }

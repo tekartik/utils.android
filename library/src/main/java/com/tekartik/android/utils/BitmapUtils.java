@@ -5,17 +5,21 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import androidx.exifinterface.media.ExifInterface;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import androidx.exifinterface.media.ExifInterface;
 
 /**
  * Created by alex on 03/10/16.
  */
 
 public class BitmapUtils {
+    static public String MIME_TYPE_PNG = "image/png";
+    static public String MIME_TYPE_JPEG = "image/jpeg";
+
     static public Bitmap decodeFromFile(int targetW, int targetH, String imagePath) {
 
         // Get the dimensions of the bitmap
@@ -40,9 +44,6 @@ public class BitmapUtils {
     static public Bitmap getResizedBitmap(int targetW, int targetH, String imagePath) {
         return decodeFromFile(targetW, targetH, imagePath);
     }
-
-    static public String MIME_TYPE_PNG = "image/png";
-    static public String MIME_TYPE_JPEG = "image/jpeg";
 
     // Square filling bitmap
     public static Bitmap createSquaredBitmap(Bitmap srcBmp) {

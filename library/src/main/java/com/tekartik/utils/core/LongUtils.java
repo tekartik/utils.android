@@ -19,21 +19,23 @@ public class LongUtils {
 
     public static Long parseLong(Object value) {
         if (value instanceof Long) {
-            return (Long)value;
+            return (Long) value;
         } else if (value instanceof Integer) {
-            return ((Integer)value).longValue();
+            return ((Integer) value).longValue();
         } else if (value instanceof Float) {
-            return (long)Math.round((Float)value);
+            return (long) Math.round((Float) value);
         } else if (value instanceof Double) {
-            return (long)Math.round((Double)value);
+            return (long) Math.round((Double) value);
         } else if (value instanceof String) {
             try {
-                return Long.parseLong((String)value);
-            } catch (Exception ignore) {}
+                return Long.parseLong((String) value);
+            } catch (Exception ignore) {
+            }
         } else if (value instanceof CharSequence) {
             try {
                 return Long.parseLong(value.toString());
-            } catch (Exception ignore) {}
+            } catch (Exception ignore) {
+            }
         }
         return null;
     }

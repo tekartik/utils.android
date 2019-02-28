@@ -47,7 +47,6 @@ public class CursorUtils {
     }
 
 
-
     static public ContentValues getFirstContentValuesAndClose(Cursor cursor) {
         if (cursor != null) {
             try {

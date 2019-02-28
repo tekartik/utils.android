@@ -21,6 +21,15 @@ public class Month extends DateBase {
         clearDay(getCalendar());
     }
 
+    static public Month parseMonth(String dateText) {
+        Calendar calendar = DateParser.parse(sdf, dateText);
+        if (calendar != null) {
+            return new Month(calendar);
+        }
+
+        return null;
+    }
+
     @Override
     public SimpleDateFormat getSimpleDateFormat() {
         return sdf;
@@ -32,15 +41,6 @@ public class Month extends DateBase {
             return false;
         }
         return super.equals(obj);
-    }
-
-    static public Month parseMonth(String dateText) {
-        Calendar calendar = DateParser.parse(sdf, dateText);
-        if (calendar != null) {
-            return new Month(calendar);
-        }
-
-        return null;
     }
 
 }

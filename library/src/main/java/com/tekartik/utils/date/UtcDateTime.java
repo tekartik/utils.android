@@ -25,6 +25,7 @@ public class UtcDateTime extends DateTime {
     public UtcDateTime(DateTime dateTime) {
         super(CalendarUtils.getCalendar(Utc.timeZone, dateTime));
     }
+
     public UtcDateTime(Date date) {
         super(CalendarUtils.getCalendar(Utc.timeZone, date));
     }
@@ -49,13 +50,6 @@ public class UtcDateTime extends DateTime {
         this(CalendarUtils.getCalendar(Utc.timeZone, year, month, day, hour, minute, second, millisecond));
     }
 
-    @Override
-    public String toString() {
-        synchronized (Utc.sdf) {
-            return Utc.sdf.format(calendar.getTime());
-        }
-    }
-
     static public UtcDateTime parse(String dateText) {
         if (dateText == null) {
             return null;
@@ -72,6 +66,13 @@ public class UtcDateTime extends DateTime {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        synchronized (Utc.sdf) {
+            return Utc.sdf.format(calendar.getTime());
+        }
     }
 
     @Override

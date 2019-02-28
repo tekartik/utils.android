@@ -1,9 +1,9 @@
 package com.tekartik.android.utils.handler;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by alex on 28/09/17.
@@ -12,10 +12,6 @@ import java.util.List;
 public class DelayedBusyListHandler<V> implements DelayedHandler {
     final DelayedHandler delayedHandler;
     final private List<V> list = new ArrayList<>();
-
-    public interface Listener<V> {
-        void onHandle(List<V> list);
-    }
 
     public DelayedBusyListHandler(long delay, @NonNull final Listener<V> listener) {
         delayedHandler = new DelayedBusyHandler(delay, new DelayedHandlerListener() {
@@ -42,5 +38,9 @@ public class DelayedBusyListHandler<V> implements DelayedHandler {
 
     public void trigger() {
         delayedHandler.trigger();
+    }
+
+    public interface Listener<V> {
+        void onHandle(List<V> list);
     }
 }

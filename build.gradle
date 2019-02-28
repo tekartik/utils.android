@@ -19,6 +19,9 @@ allprojects {
         maven { url "https://jitpack.io" }
         google()
     }
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
 }
 
 task clean(type: Delete) {
@@ -27,7 +30,8 @@ task clean(type: Delete) {
 
 ext {
     sdkVersion = 28
+    gsonVersion = '2.8.5'
     supportLibraryVersion = '1.0.0'
     appCompatVersion = '1.0.2'
-    tekartikTestVersion = "0.5.0"
+    tekartikTestVersion = "0.5.1"
 }

@@ -131,29 +131,6 @@ public class GsonUtils {
         return null;
     }
 
-    static public class ListOfJson<T> implements ParameterizedType {
-        private Class<?> wrapped;
-
-        public ListOfJson(Class<T> wrapper) {
-            this.wrapped = wrapper;
-        }
-
-        @Override
-        public Type[] getActualTypeArguments() {
-            return new Type[]{wrapped};
-        }
-
-        @Override
-        public Type getRawType() {
-            return List.class;
-        }
-
-        @Override
-        public Type getOwnerType() {
-            return null;
-        }
-    }
-
     static public <T> List<T> listFromJson(Gson gson, String json, Class<T> klass) {
         if (json == null) {
             return null;
@@ -186,7 +163,6 @@ public class GsonUtils {
         }
         return null;
     }
-
 
     static public <T> List<T> unpackList(Gson gson, JsonObject jsonObject, Class<T> type) {
         if (jsonObject != null) {
@@ -225,5 +201,28 @@ public class GsonUtils {
 
     static public String prettyPrint(String json) {
         return prettyPrint(parse(json));
+    }
+
+    static public class ListOfJson<T> implements ParameterizedType {
+        private Class<?> wrapped;
+
+        public ListOfJson(Class<T> wrapper) {
+            this.wrapped = wrapper;
+        }
+
+        @Override
+        public Type[] getActualTypeArguments() {
+            return new Type[]{wrapped};
+        }
+
+        @Override
+        public Type getRawType() {
+            return List.class;
+        }
+
+        @Override
+        public Type getOwnerType() {
+            return null;
+        }
     }
 }

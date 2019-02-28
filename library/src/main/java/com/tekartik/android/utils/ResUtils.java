@@ -1,7 +1,6 @@
 package com.tekartik.android.utils;
 
 import android.content.res.Resources;
-import androidx.annotation.RawRes;
 
 import com.tekartik.utils.stream.StreamUtils;
 
@@ -10,9 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
+import androidx.annotation.RawRes;
+
 /**
  * Created by alex on 30/03/17.
- *
+ * <p>
  * Good for loading json for example
  */
 public class ResUtils {

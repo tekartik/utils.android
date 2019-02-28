@@ -24,45 +24,17 @@ import java.util.Random;
  */
 
 public class HandlerTestMenu extends Test.Menu {
-    protected HandlerTestMenu() {
-        super("Handler");
-    }
-
     int count = 0;
     DelayedBusyHandler delayedBusyHandler;
     DelayedIdleHandler delayedIdleHandler;
     DelayedBusyMapHandler<String, String> delayedBusyMapHandler;
     DelayedBusyListHandler<String> delayedBusyListHandler;
-
     Handler triggerRepeatHandler = new Handler();
-
     long repeatStartTimestamp;
     long repeatDuration;
     long repeatDelay;
     Listener repeatTriggerListener; //DelayedHandler repeatDelayedHandler;
-
-    void triggerAndRepeat() {
-        repeatTriggerListener.onTrigger();
-        if (!TimestampUtils.elapsed(repeatStartTimestamp, new Date().getTime(), repeatDuration)) {
-            Log.d(TAG, "trigger");
-            triggerRepeatHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    triggerAndRepeat();
-                }
-            }, repeatDelay);
-        }
-    }
-
-
-    void triggerDuring(final long duration, long delay, final Listener triggerListener) {
-        repeatDuration = duration;
-        repeatDelay = delay;
-        repeatTriggerListener = triggerListener;
-        repeatStartTimestamp = new Date().getTime();
-        triggerAndRepeat();
-    }
-
+    SingleOperationHandler singleOperationHandler = new SingleOperationHandler(singleOperationListener);
     SingleOperationHandler.Listener singleOperationListener = new SingleOperationHandler.Listener() {
         @Override
         public void onHandle() {
@@ -82,10 +54,30 @@ public class HandlerTestMenu extends Test.Menu {
         }
     };
 
-    SingleOperationHandler singleOperationHandler = new SingleOperationHandler(singleOperationListener);
 
-    interface Listener {
-        void onTrigger();
+    protected HandlerTestMenu() {
+        super("Handler");
+    }
+
+    void triggerAndRepeat() {
+        repeatTriggerListener.onTrigger();
+        if (!TimestampUtils.elapsed(repeatStartTimestamp, new Date().getTime(), repeatDuration)) {
+            Log.d(TAG, "trigger");
+            triggerRepeatHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    triggerAndRepeat();
+                }
+            }, repeatDelay);
+        }
+    }
+
+    void triggerDuring(final long duration, long delay, final Listener triggerListener) {
+        repeatDuration = duration;
+        repeatDelay = delay;
+        repeatTriggerListener = triggerListener;
+        repeatStartTimestamp = new Date().getTime();
+        triggerAndRepeat();
     }
 
     @Override
@@ -190,5 +182,9 @@ public class HandlerTestMenu extends Test.Menu {
 
         );
 
+    }
+
+    interface Listener {
+        void onTrigger();
     }
 }

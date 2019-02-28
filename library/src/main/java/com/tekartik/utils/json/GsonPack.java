@@ -23,15 +23,6 @@ public class GsonPack<T> {
         this.list = list;
     }
 
-    public <T> JsonObject pack(Gson gson) {
-
-        JsonObject jsonObject = GsonUtils.packList(gson, list);
-        if (version != 0 && jsonObject != null) {
-            jsonObject.addProperty(VERSION, version);
-        }
-        return jsonObject;
-    }
-
     static public <T> JsonObject pack(Gson gson, GsonPack<T> pack) {
         if (pack != null) {
             return pack.pack(gson);
@@ -60,6 +51,15 @@ public class GsonPack<T> {
             }
         }
         return null;
+    }
+
+    public <T> JsonObject pack(Gson gson) {
+
+        JsonObject jsonObject = GsonUtils.packList(gson, list);
+        if (version != 0 && jsonObject != null) {
+            jsonObject.addProperty(VERSION, version);
+        }
+        return jsonObject;
     }
 
     @Override

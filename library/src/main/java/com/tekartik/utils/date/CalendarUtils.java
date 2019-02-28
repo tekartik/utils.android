@@ -104,6 +104,7 @@ public class CalendarUtils {
         return getCalendar(timeZone, dateTime.getMillis());
 
     }
+
     public static Calendar getCalendar(TimeZone timeZone, Date date) {
         if (date == null) {
             return getCalendar(timeZone);

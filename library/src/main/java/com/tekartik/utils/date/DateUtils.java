@@ -42,6 +42,7 @@ public class DateUtils {
         return date.getTime();
 
     }
+
     public static boolean elapsed(java.util.Date date1, java.util.Date date2, long millis) {
         return TimestampUtils.elapsed(getMillis(date1), getMillis(date2), millis);
     }

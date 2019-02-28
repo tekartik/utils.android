@@ -15,8 +15,40 @@ import static java.lang.Boolean.TRUE;
  */
 public abstract class SequenceValidator {
 
-    private long lastTime = 0;
     int sequenceIndex = 0;
+    private long lastTime = 0;
+
+    static private boolean smallDiff(long diff) {
+        return diff <= 500;
+    }
+
+    // Ok in Multi, not ok in Suite for small group
+    static private boolean mediumDiff(long diff) {
+        return diff <= 1000;
+    }
+
+    // True if at least 500ms
+    static private boolean largeDiff(long diff) {
+        return diff >= 500 && diff < 3000;
+    }
+
+    protected abstract boolean validate(long timestamp, long diff);
+
+    public boolean validate(long timestamp) {
+        long diff = timestamp - lastTime;
+        if (diff > 1500) {
+            sequenceIndex = 0;
+        }
+
+        boolean validated = validate(timestamp, diff);
+        lastTime = timestamp;
+        return validated;
+    }
+
+    @SuppressWarnings("unused")
+    public boolean validate() {
+        return validate(System.currentTimeMillis());
+    }
 
     static public class Multi extends SequenceValidator {
 
@@ -102,38 +134,6 @@ public abstract class SequenceValidator {
             }
             return false;
         }
-    }
-
-    static private boolean smallDiff(long diff) {
-        return diff <= 500;
-    }
-
-    // Ok in Multi, not ok in Suite for small group
-    static private boolean mediumDiff(long diff) {
-        return diff <= 1000;
-    }
-
-    // True if at least 500ms
-    static private boolean largeDiff(long diff) {
-        return diff >= 500 && diff < 3000;
-    }
-
-    protected abstract boolean validate(long timestamp, long diff);
-
-    public boolean validate(long timestamp) {
-        long diff = timestamp - lastTime;
-        if (diff > 1500) {
-            sequenceIndex = 0;
-        }
-
-        boolean validated = validate(timestamp, diff);
-        lastTime = timestamp;
-        return validated;
-    }
-
-    @SuppressWarnings("unused")
-    public boolean validate() {
-        return validate(System.currentTimeMillis());
     }
 
 }

@@ -19,21 +19,23 @@ public class IntegerUtils {
 
     public static Integer parseInt(Object value) {
         if (value instanceof Integer) {
-            return (Integer)value;
+            return (Integer) value;
         } else if (value instanceof Long) {
-            return (int)(long)(Long)value;
+            return (int) (long) (Long) value;
         } else if (value instanceof Float) {
-            return Math.round((Float)value);
+            return Math.round((Float) value);
         } else if (value instanceof Double) {
-            return (int)Math.round((Double)value);
+            return (int) Math.round((Double) value);
         } else if (value instanceof String) {
             try {
-                return Integer.parseInt((String)value);
-            } catch (Exception ignore) {}
+                return Integer.parseInt((String) value);
+            } catch (Exception ignore) {
+            }
         } else if (value instanceof CharSequence) {
             try {
                 return Integer.parseInt(value.toString());
-            } catch (Exception ignore) {}
+            } catch (Exception ignore) {
+            }
         }
         return null;
     }
