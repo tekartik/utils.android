@@ -23,6 +23,7 @@ public class DebugTest {
 
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void devLog() throws Exception {
 

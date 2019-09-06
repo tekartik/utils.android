@@ -22,6 +22,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
+    implementation "com.google.code.gson:gson:${gsonVersion}"
     implementation "com.github.tekartik:test.android:${tekartikTestVersion}"
     implementation "androidx.appcompat:appcompat:${appCompatVersion}"
     implementation project(':library')

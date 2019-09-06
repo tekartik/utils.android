@@ -1,7 +1,9 @@
 package com.tekartik.android.utils;
 
 import android.os.Looper;
-import androidx.test.runner.AndroidJUnit4;
+
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.tekartik.android.utils.handler.DelayedHandler;
 import com.tekartik.android.utils.handler.DelayedHandlerListener;

@@ -2,6 +2,7 @@ package com.tekartik.utils.date;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static com.tekartik.utils.date.CalendarUtils.clearDay;
 
@@ -10,7 +11,7 @@ import static com.tekartik.utils.date.CalendarUtils.clearDay;
  */
 public class Month extends DateBase {
 
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM", Locale.US);
 
     static {
         sdf.setTimeZone(Utc.timeZone);

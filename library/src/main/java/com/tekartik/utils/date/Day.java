@@ -2,6 +2,7 @@ package com.tekartik.utils.date;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static com.tekartik.utils.date.CalendarUtils.clearTime;
 import static com.tekartik.utils.date.CalendarUtils.getNowToUtcCalendarSameTime;
@@ -11,7 +12,7 @@ import static com.tekartik.utils.date.CalendarUtils.getNowToUtcCalendarSameTime;
  */
 public class Day extends DateBase {
 
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     static {
         sdf.setTimeZone(Utc.timeZone);

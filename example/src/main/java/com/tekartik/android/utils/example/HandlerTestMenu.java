@@ -34,7 +34,6 @@ public class HandlerTestMenu extends Test.Menu {
     long repeatDuration;
     long repeatDelay;
     Listener repeatTriggerListener; //DelayedHandler repeatDelayedHandler;
-    SingleOperationHandler singleOperationHandler = new SingleOperationHandler(singleOperationListener);
     SingleOperationHandler.Listener singleOperationListener = new SingleOperationHandler.Listener() {
         @Override
         public void onHandle() {
@@ -53,10 +52,12 @@ public class HandlerTestMenu extends Test.Menu {
             }.execute();
         }
     };
+    SingleOperationHandler singleOperationHandler = new SingleOperationHandler(singleOperationListener);
 
 
     protected HandlerTestMenu() {
         super("Handler");
+
     }
 
     void triggerAndRepeat() {

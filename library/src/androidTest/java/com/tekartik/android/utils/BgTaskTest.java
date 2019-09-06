@@ -2,9 +2,10 @@ package com.tekartik.android.utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
 import androidx.annotation.CallSuper;
-import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +27,7 @@ public class BgTaskTest {
 
 
     static private Context getContext() {
-        return InstrumentationRegistry.getContext();
+        return ApplicationProvider.getApplicationContext();
     }
 
     class SimpleData {

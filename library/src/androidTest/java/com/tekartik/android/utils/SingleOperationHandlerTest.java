@@ -2,6 +2,8 @@ package com.tekartik.android.utils;
 
 import android.os.Looper;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 import com.tekartik.android.utils.handler.SingleOperationHandler;
 import com.tekartik.utils.async.Completer;
 
@@ -11,7 +13,7 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import androidx.test.runner.AndroidJUnit4;
+
 
 import static com.tekartik.utils.debug.Debug.devLog;
 import static org.junit.Assert.assertEquals;

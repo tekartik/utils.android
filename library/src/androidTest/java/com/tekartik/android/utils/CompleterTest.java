@@ -3,7 +3,9 @@ package com.tekartik.android.utils;
 import android.content.Context;
 import androidx.annotation.CallSuper;
 import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
 
 import com.tekartik.utils.async.Completer;
 
@@ -23,7 +25,7 @@ public class CompleterTest {
 
 
     static private Context getContext() {
-        return InstrumentationRegistry.getContext();
+        return ApplicationProvider.getApplicationContext();
     }
 
     class SimpleData {
