@@ -20,7 +20,7 @@ In your project
 
 ```
 dependencies {
-    <b>compile 'com.github.tekartik:utils.android:0.5.0'</b>
+    <b>compile 'com.github.tekartik:utils.android:0.6.1'</b>
 }
 ```
 
