@@ -30,6 +30,8 @@ public class MainMenuActivity extends Test.MenuActivity {
             Log.i(TAG, "MainMenu");
             initItems(
                     new MenuItem(new HandlerTestMenu()),
+                    new MenuItem(new BgTaskTestMenu()),
+                    new MenuItem(new ExecutorTaskTestMenu()),
                     new Item("isEmulator") {
                         @Override
                         public void execute() {
