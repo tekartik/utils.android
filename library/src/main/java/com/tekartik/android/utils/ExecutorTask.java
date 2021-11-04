@@ -89,6 +89,7 @@ public abstract class ExecutorTask {
                 if (name != null) {
                     thread.setName(oldName);
                 }
+                Log.d("/test", "1");
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {

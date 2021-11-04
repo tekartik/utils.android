@@ -44,7 +44,13 @@ public class MainMenuActivity extends Test.MenuActivity {
                         public void execute() {
                             StringBuilder sb = new StringBuilder();
 
-                            Display display = getActivity().getWindowManager().getDefaultDisplay();
+                            Display display;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+                                display = getActivity().getDisplay();
+                            } else {
+                                display = getActivity().getWindowManager().getDefaultDisplay();
+                            }
+                            //Display display = getActivity().getWindowManager().getDefaultDisplay();
                             DisplayMetrics outMetrics = new DisplayMetrics();
                             display.getMetrics(outMetrics);
 

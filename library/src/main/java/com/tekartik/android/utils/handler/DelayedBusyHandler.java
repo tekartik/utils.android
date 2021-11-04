@@ -1,6 +1,7 @@
 package com.tekartik.android.utils.handler;
 
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
@@ -14,7 +15,7 @@ public class DelayedBusyHandler implements DelayedHandler {
     private final long delay;
     @NonNull
     private final DelayedHandlerListener listener;
-    private final Handler handler = new Handler();
+    private final Handler handler = new Handler(Looper.myLooper());
     private boolean pending = false;
     private boolean triggered = false;
 

@@ -103,8 +103,7 @@ public class GsonUtils {
         if (src == null) {
             return null;
         }
-        JsonParser parser = new JsonParser();
-        return parser.parse(src);
+        return JsonParser.parseString(src);
     }
 
     // safe

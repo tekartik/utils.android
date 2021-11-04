@@ -1,6 +1,7 @@
 package com.tekartik.android.utils.example;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.tekartik.android.utils.BgTask;
@@ -29,7 +30,7 @@ public class HandlerTestMenu extends Test.Menu {
     DelayedIdleHandler delayedIdleHandler;
     DelayedBusyMapHandler<String, String> delayedBusyMapHandler;
     DelayedBusyListHandler<String> delayedBusyListHandler;
-    Handler triggerRepeatHandler = new Handler();
+    Handler triggerRepeatHandler = new Handler(Looper.myLooper());
     long repeatStartTimestamp;
     long repeatDuration;
     long repeatDelay;

@@ -1,6 +1,7 @@
 package com.tekartik.android.utils.handler;
 
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
@@ -16,7 +17,7 @@ public class SingleOperationHandler implements DelayedHandler {
 
     @NonNull
     private final Listener listener;
-    private final Handler handler = new Handler();
+    private final Handler handler = new Handler(Looper.myLooper());
     private long handleRevision = 0;
     private long triggerRevision = 0;
     private boolean pending = false;
